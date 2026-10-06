@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WKE教務系統</title>
+ 
+  <base href="/s114321026/">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- 1. 頂部 Header：滿版，標題靠左、登入按鈕靠右 -->
+  <header class="top-header">
+    <div class="header-title">WKE教務系統</div>
+    <div class="header-actions">
+      <button type="button" class="btn-login">登入</button>
+    </div>
+  </header>
+
+  <!-- 2. 主版面容器：包覆側邊欄與主要內容區 -->
+  <div class="layout-container">
+    
+    <!-- 側邊欄：預留給 JS 渲染 teacher_ops.json -->
+    <aside class="sidebar" id="sidebar">
+      <nav class="nav-menu">
+        <div class="menu-title">功能列表</div>
+        <ul id="sidebar-items">
+          <!-- 稍後由 app.js 動態產生 -->
+          <li class="nav-item active">Dashboard</li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- 主要內容區：預留給 JS 渲染卡片 (dashboard_cards.json) -->
+    <main class="main-content" id="main">
+      <h1 class="page-title">儀表板 (Dashboard)</h1>
+      <section class="card-grid" id="card-container">
+        <!-- 靜態佔位卡片，確認排版用 -->
+        <article class="card">
+          <h3>課程管理</h3>
+          <p>載入中...</p>
+        </article>
+      </section>
+    </main>
+
+  </div>
+
+  <!-- 3. 底部 Footer -->
+  <footer class="main-footer">
+    <p>&copy; 2026 WKE 教務系統</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
