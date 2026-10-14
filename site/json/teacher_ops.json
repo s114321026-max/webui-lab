@@ -1,0 +1,7 @@
+[
+  { "id": "dashboard", "title": "儀表板 (Dashboard)", "icon": "📊", "active": true },
+  { "id": "courses", "title": "課程管理", "icon": "📚", "active": false },
+  { "id": "grades", "title": "成績登錄", "icon": "📝", "active": false },
+  { "id": "rollcall", "title": "點名出勤", "icon": "✅", "active": false },
+  { "id": "settings", "title": "系統設定", "icon": "⚙️", "active": false }
+]

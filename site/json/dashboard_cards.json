@@ -1,0 +1,26 @@
+[
+  {
+    "title": "今日應到人數",
+    "value": "128 人",
+    "description": "已簽到 112 人，出席率 87.5%",
+    "tag": "即時統計"
+  },
+  {
+    "title": "進行中課程",
+    "value": "Web Programming",
+    "description": "教室：EC105 ｜ 授課教師：周信宏",
+    "tag": "進行中"
+  },
+  {
+    "title": "待審核請假",
+    "value": "3 筆",
+    "description": "包含公假 2 筆、病假 1 筆待確認",
+    "tag": "待處理"
+  },
+  {
+    "title": "下次例會排程",
+    "value": "週四 18:30",
+    "description": "地點：系學會辦公室（已同步行事曆）",
+    "tag": "提醒"
+  }
+]

@@ -1,0 +1,24 @@
+{
+  "name": "webui-lab",
+  "version": "1.0.0",
+  "description": "markdown\r # WebUI Lab",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/s114321026-max/webui-lab.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/s114321026-max/webui-lab/issues"
+  },
+  "homepage": "https://github.com/s114321026-max/webui-lab#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}

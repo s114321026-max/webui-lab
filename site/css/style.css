@@ -1,3 +1,49 @@
+/* 預設淺色主題 (Light Mode)[cite: 2] */
+:root {
+  --bg-primary: #f1f5f9;
+  --bg-surface: #ffffff;
+  --bg-sidebar: #f8fafc;
+  --header-bg: #1e293b;
+  --header-text: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --border-color: #e2e8f0;
+  --primary-color: #2563eb;
+  --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* 深色主題 (Dark Mode)[cite: 2] */
+body.dark-theme {
+  --bg-primary: #0f172a;
+  --bg-surface: #1e293b;
+  --bg-sidebar: #1e293b;
+  --header-bg: #0b1120;
+  --header-text: #f8fafc;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --primary-color: #3b82f6;
+  --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* 全域套用變數 */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar {
+  background-color: var(--bg-sidebar);
+  border-color: var(--border-color);
+}
+
+.card {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+  box-shadow: var(--card-shadow);
+}
+
 /* ==========================================================================
    1. 基礎設定與變數 (Box-sizing & Variables)
    ========================================================================== */
@@ -124,4 +170,42 @@ body {
   .sidebar {
     min-height: calc(100vh - 150px);
   }
+}
+
+/* 漢堡按鈕樣式 */
+.btn-menu {
+  background: transparent;
+  border: none;
+  color: var(--header-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: block; /* 手機端預設顯示 */
+}
+
+/* 手機版：側邊欄預設隱藏，點擊按鈕後加上 .open 才展開 */
+@media (max-width: 767px) {
+  .sidebar {
+    display: none; /* 手機版預設收起，不佔畫面空間 */
+  }
+
+  .sidebar.open {
+    display: block; /* 點擊漢堡按鈕後展開 */
+    animation: fadeIn 0.2s ease-in-out;
+  }
+}
+
+/* 桌機版（768px 以上）：隱藏漢堡按鈕，側邊欄永遠顯示 */
+@media (min-width: 768px) {
+  .btn-menu {
+    display: none; /* 桌機不需要漢堡按鈕 */
+  }
+
+  .sidebar {
+    display: block !important;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
