@@ -19,3 +19,14 @@ Thumbs.db
 # 日誌
 *.log
 npm-debug.log*
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+
+# 資料庫（本機測試資料）
+*.db
+*.sqlite3
