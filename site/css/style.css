@@ -1,211 +1,345 @@
-/* 預設淺色主題 (Light Mode)[cite: 2] */
+/* ==========================================================================
+   style.css — WKE 教務系統
+   原則：Mobile First（預設手機單欄，768px 以上才改雙欄）
+   結構：1.變數  2.基礎  3.Header  4.版面  5.Sidebar  6.Main/Card  7.Footer  8.桌機
+   ========================================================================== */
+ 
+/* ==========================================================================
+   1. 設計變數（只保留一組 :root；深色模式只覆蓋「值」，不新增名稱）
+   ========================================================================== */
 :root {
-  --bg-primary: #f1f5f9;
+  color-scheme: light;
+ 
+  --bg-page: #f1f5f9;
   --bg-surface: #ffffff;
   --bg-sidebar: #f8fafc;
+  --bg-footer: #e2e8f0;
+  --bg-hover: #e2e8f0;
+ 
   --header-bg: #1e293b;
   --header-text: #ffffff;
+ 
   --text-primary: #1e293b;
   --text-secondary: #64748b;
+ 
   --border-color: #e2e8f0;
   --primary-color: #2563eb;
+  --primary-contrast: #ffffff;
+ 
   --card-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+ 
+  --gap-size: 1rem;
+  --radius: 8px;
+  --header-height: 56px;
 }
-
-/* 深色主題 (Dark Mode)[cite: 2] */
+ 
 body.dark-theme {
-  --bg-primary: #0f172a;
+  color-scheme: dark;
+ 
+  --bg-page: #0f172a;
   --bg-surface: #1e293b;
   --bg-sidebar: #1e293b;
+  --bg-footer: #0b1120;
+  --bg-hover: #334155;
+ 
   --header-bg: #0b1120;
   --header-text: #f8fafc;
+ 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
+ 
   --border-color: #334155;
   --primary-color: #3b82f6;
+  --primary-contrast: #ffffff;
+ 
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
-
-/* 全域套用變數 */
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.sidebar {
-  background-color: var(--bg-sidebar);
-  border-color: var(--border-color);
-}
-
-.card {
-  background-color: var(--bg-surface);
-  border-color: var(--border-color);
-  box-shadow: var(--card-shadow);
-}
-
+ 
 /* ==========================================================================
-   1. 基礎設定與變數 (Box-sizing & Variables)
+   2. 基礎設定
    ========================================================================== */
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+ 
+* {
   margin: 0;
   padding: 0;
 }
-
-:root {
-  --header-bg: #1e293b;
-  --header-text: #ffffff;
-  --sidebar-bg: #f8fafc;
-  --main-bg: #f1f5f9;
-  --card-bg: #ffffff;
-  --border-color: #e2e8f0;
-  --primary-color: #2563eb;
-  --gap-size: 1rem;
-}
-
+ 
 body {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--main-bg);
-  color: #334155;
+  font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans TC", Roboto, sans-serif;
+  line-height: 1.6;
+  background-color: var(--bg-page);
+  color: var(--text-primary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+ 
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+ 
 /* ==========================================================================
-   2. Header (Flexbox 負責橫向對齊)
+   3. Header（Flex：標題靠左，按鈕靠右）
    ========================================================================== */
 .top-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  min-height: var(--header-height);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-size);
   background-color: var(--header-bg);
   color: var(--header-text);
-  padding: 0.75rem 1.25rem;
-  display: flex;                  /* 一維排版首選 Flex */
-  justify-content: space-between; /* 標題靠左，登入按鈕靠右 */
-  align-items: center;
+  transition: background-color 0.3s ease;
 }
-
+ 
 .header-title {
-  font-size: 1.25rem;
+  flex: 1;                       /* 漢堡在左、標題居中填滿、登入在右 */
+  font-size: 1.125rem;
   font-weight: 700;
 }
-
-.btn-login {
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  padding: 0.4rem 0.9rem;
-  cursor: pointer;
-}
-
-/* ==========================================================================
-   3. 手機版預設排版 (Mobile-First: 單欄縱向流)
-   ========================================================================== */
-.layout-container {
+ 
+.header-left,
+.header-actions {
   display: flex;
-  flex-direction: column;         /* 手機上由上往下垂直堆疊 */
-  gap: var(--gap-size);           /* 避免用 margin 硬推，使用 gap[cite: 14] */
-  padding: 1rem;
-  flex: 1;                        /* 撐開剩餘高度 */
-}
-
-.sidebar {
-  background-color: var(--sidebar-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.sidebar-items {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
-
-.main-content {
-  background-color: transparent;
+ 
+.header-left {
+  flex: 1;
+  min-width: 0;
 }
-
-.page-title {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-}
-
-/* 內容卡片自動換行網格 (Grid auto-fill + minmax)[cite: 14] */
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-.card {
-  background-color: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 1.25rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-.main-footer {
-  text-align: center;
-  padding: 1rem;
-  background-color: #e2e8f0;
-  font-size: 0.875rem;
-}
-
-/* ==========================================================================
-   4. 桌機與平板排版 (Media Query 768px 以上改為 Grid 雙欄)
-   ========================================================================== */
-@media (min-width: 768px) {
-  .layout-container {
-    display: grid;
-    /* 左側側邊欄固定 260px，右側內容區自適應填滿[cite: 14] */
-    grid-template-columns: 260px 1fr;
-    align-items: start;
-    padding: 1.5rem;
-  }
-
-  .sidebar {
-    min-height: calc(100vh - 150px);
-  }
-}
-
-/* 漢堡按鈕樣式 */
+ 
 .btn-menu {
   background: transparent;
   border: none;
   color: var(--header-text);
   font-size: 1.5rem;
+  line-height: 1;
   cursor: pointer;
-  display: block; /* 手機端預設顯示 */
 }
-
-/* 手機版：側邊欄預設隱藏，點擊按鈕後加上 .open 才展開 */
-@media (max-width: 767px) {
-  .sidebar {
-    display: none; /* 手機版預設收起，不佔畫面空間 */
-  }
-
-  .sidebar.open {
-    display: block; /* 點擊漢堡按鈕後展開 */
-    animation: fadeIn 0.2s ease-in-out;
-  }
+ 
+.btn-theme {
+  background: transparent;
+  border: 1px solid var(--header-text);
+  border-radius: 4px;
+  color: var(--header-text);
+  font-size: 0.8125rem;
+  padding: 0.3rem 0.6rem;
+  white-space: nowrap;
+  cursor: pointer;
 }
-
-/* 桌機版（768px 以上）：隱藏漢堡按鈕，側邊欄永遠顯示 */
+ 
+.btn-theme:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+ 
+.btn-login {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast);
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.9rem;
+  cursor: pointer;
+}
+ 
+.btn-login:hover {
+  filter: brightness(1.1);
+}
+ 
+/* ==========================================================================
+   4. 版面容器（手機：單欄縱向）
+   ========================================================================== */
+.layout-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-size);
+  padding: var(--gap-size);
+}
+ 
+/* ==========================================================================
+   5. Sidebar（手機預設收起，加 .open 才展開）
+   ========================================================================== */
+.sidebar {
+  display: none;
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: var(--gap-size);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+ 
+.sidebar.open {
+  display: block;
+  animation: fadeIn 0.2s ease-in-out;
+}
+ 
+.menu-title {
+  padding: 0 0.75rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+ 
+.nav-menu ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+ 
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  color: var(--text-primary);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s ease;
+}
+ 
+.nav-item:hover {
+  background-color: var(--bg-hover);
+}
+ 
+.nav-item.active {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast);
+}
+ 
+/* ==========================================================================
+   6. Main 與卡片（Grid auto-fill + minmax，不用多個 media query）
+   ========================================================================== */
+.main-content {
+  min-width: 0;                  /* 防止卡片內容把 Grid 欄位撐破 */
+}
+ 
+.page-title {
+  font-size: 1.5rem;
+  margin-bottom: var(--gap-size);
+  color: var(--text-primary);
+}
+ 
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(240px, 100%), 1fr));
+  gap: var(--gap-size);
+}
+ 
+.card {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  box-shadow: var(--card-shadow);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+ 
+.card h2,
+.card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+ 
+.card p,
+.card small {
+  color: var(--text-secondary);
+}
+ 
+/* 儀表板卡片內部（原本寫在 app.js 的 inline style，改放這裡才能跟著主題變色） */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+ 
+.card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+ 
+.card-tag {
+  flex-shrink: 0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  background-color: var(--border-color);
+  color: var(--text-secondary);
+}
+ 
+.card-value {
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+ 
+/* W05 互動：click 後由 app.js 加上 .is-selected，一次只有一張卡片被選取 */
+.card-grid .card {
+  cursor: pointer;
+}
+ 
+.card.is-selected {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px var(--primary-color);
+}
+ 
+/* ==========================================================================
+   7. Footer
+   ========================================================================== */
+.main-footer {
+  padding: var(--gap-size);
+  text-align: center;
+  font-size: 0.875rem;
+  background-color: var(--bg-footer);
+  color: var(--text-secondary);
+  transition: background-color 0.3s ease;
+}
+ 
+/* ==========================================================================
+   8. 平板／桌機（768px 以上）：Grid 雙欄，隱藏漢堡
+   ========================================================================== */
 @media (min-width: 768px) {
-  .btn-menu {
-    display: none; /* 桌機不需要漢堡按鈕 */
+  .layout-container {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+    align-items: start;
+    padding: 1.5rem;
   }
-
+ 
   .sidebar {
-    display: block !important;
+    display: block;              /* 桌機永遠顯示，不再需要 !important */
+    position: sticky;            /* 捲動時側邊欄固定在 header 下方 */
+    top: calc(var(--header-height) + 1.5rem);
+    max-height: calc(100vh - var(--header-height) - 3rem);
+    overflow-y: auto;
+  }
+ 
+  .btn-menu {
+    display: none;
   }
 }
-
+ 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-5px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
